@@ -1,0 +1,62 @@
+﻿{
+    "RiceList": [
+        {
+            "Name": "Indrayani",
+            "Kg": 5,
+            "Price": 20,
+            "Type": "long"
+        },
+        {
+            "Name": "Basmati",
+            "Kg": 8,
+            "Price": 23,
+            "Type": "Small"
+        },
+        {
+            "Name": "Jira",
+            "Kg": 7,
+            "Price": 18,
+            "Type": "long"
+        }
+    ],
+    "pulselist": [
+        {
+            "Name": "Tur",
+            "Kg": 5,
+            "Price": 20,
+            "Type": "small"
+        },
+        {
+            "Name": "Chana",
+            "Kg": 8,
+            "Price": 30,
+            "Type": "long"
+        },
+        {
+            "Name": "Mug",
+            "Kg": 7,
+            "Price": 18,
+            "Type": "thin"
+        }
+    ],
+    "wheatlist": [
+        {
+            "Name": "lokvan",
+            "Kg": 2,
+            "Price": 10,
+            "Type": "long"
+        },
+        {
+            "Name": "Shivar",
+            "Kg": 3,
+            "Price": 23,
+            "Type": "Small"
+        },
+        {
+            "Name": "Ajit",
+            "Kg": 10,
+            "Price": 18,
+            "Type": "long"
+        }
+    ]
+}
