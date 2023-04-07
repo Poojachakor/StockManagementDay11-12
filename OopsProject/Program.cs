@@ -1,28 +1,92 @@
-﻿namespace OopsProject
+﻿using Newtonsoft.Json;
+
+namespace OopsProject
 {
-    internal class Program
+     class Program
     {
+        
         static void Main(string[] args)
         {
-            StockPortfolio portfolio = new StockPortfolio();
 
-            // Read input from user
-            Console.Write("Enter the number of stocks: ");
-            int numStocks = int.Parse(Console.ReadLine());
-            for (int i = 0; i < numStocks; i++)
+            //Creating obj for StockManager
+            StockManager stockManager = new StockManager();
+            //getting path of json file
+            string file = @"C:\Users\hp\source\repos\OopsProject\OopsProject\Json.Json";
+            string acc = @"C:\Users\hp\source\repos\OopsProject\OopsProject\Account.JSON";
+            //DeserializeO Json file
+            StockUtility stockUtility = JsonConvert.DeserializeObject<StockUtility>(File.ReadAllText(file));
+
+            Console.WriteLine("-------------------------------------------------------------------------------------");
+            Console.WriteLine("                            STOCK MANAGEMENT METHODS                                 ");
+            Console.WriteLine("-------------------------------------------------------------------------------------");
+            Console.WriteLine("Enter which operation to perform on Stock Inventory\n 1-Add a stock\n 2-Remove a stock\n 3-Display Stocks");
+
+            AccountUtility accountUtility = JsonConvert.DeserializeObject<AccountUtility>(File.ReadAllText(acc));
+            int num = Convert.ToInt32(Console.ReadLine());
+            var fs = stockUtility.stocksList;
+            //Performing stock management functions
+            switch (num)
             {
-                Console.Write("Enter stock name: ");
-                string name = Console.ReadLine();
-                Console.Write("Enter number of shares: ");
-                int numShares = int.Parse(Console.ReadLine());
-                Console.Write("Enter share price: ");
-                double price = double.Parse(Console.ReadLine());
-                Stock stock = new Stock { Name = name, NumShares = numShares, Price = price };
-                portfolio.AddStock(stock);
+                case 1:
+                    stockManager.AddStock(fs);
+                    File.WriteAllText(file, JsonConvert.SerializeObject(stockUtility));
+                    stockManager.DisplayStocks(fs);
+                    break;
+                case 2:
+                    stockManager.DeleteInventory(fs);
+                    File.WriteAllText(file, JsonConvert.SerializeObject(stockUtility));
+                    stockManager.DisplayStocks(fs);
+                    break;
+                case 3:
+                    stockManager.DisplayStocks(fs);
+                    break;
+            }
+            Console.WriteLine("-------------------------------------------------------------------------------------");
+            Console.WriteLine("                            STOCK ACCOUNT METHODS                                    ");
+            Console.WriteLine("-------------------------------------------------------------------------------------");
+            //Perform account management function
+            string flag = "Y";
+            while (flag == "Y")
+            {
+                Console.WriteLine("Please Enter :\n1-Display user account\n2-To buy a share\n3-To sell a share\n4-To Display Account report");
+                int ch = Convert.ToInt32(Console.ReadLine());
+                var fs1 = accountUtility.AccountList;
+                switch (ch)
+                {
+                    case 1:
+                        stockManager.StockAccount(acc);
+                        break;
+                    case 2:
+                        Console.WriteLine("Enter amount: ");
+                        int amount = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Enter company name in which you want to buy share: ");
+                        string companyname = Console.ReadLine();
+                        stockManager.Buy(amount, companyname);
+
+
+                        break;
+                    case 3:
+                        Console.WriteLine("Enter amount: ");
+                        int amount1 = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Enter company name in which you want to sell share: ");
+                        string companyname1 = Console.ReadLine();
+                        stockManager.Sell(amount1, companyname1);
+
+                        break;
+                    case 4:
+                        stockManager.StockPurchased();
+                        stockManager.StockSold();
+                        stockManager.DateandTime();
+                        break;
+
+
+                }
+                Console.WriteLine("\nDo you want to continue?(Y/N)");
+                flag = Console.ReadLine();
             }
 
-            // Print stock report
-            Console.WriteLine(portfolio.GetStockReport());
+
         }
     }
 }
+
